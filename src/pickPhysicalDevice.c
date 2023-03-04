@@ -11,6 +11,16 @@
 
 #include "pickPhysicalDevice.h"
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 == *s2 && *s1 != '\0' && *s2 != '\0')
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
+
 int	isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR surface)
 {
 	VkPhysicalDeviceProperties	deviceProperties;
@@ -32,11 +42,11 @@ int	isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR surface)
 	vkEnumerateDeviceExtensionProperties(device, NULL, &extensionCount, availableExtensions);
 	for (uint32_t j = 0; j < SZ_REQUIRED_DEVICE_EXTENSIONS; j++)
 	{
-		for (i = 0; i < extensionCount && strcmp(requiredExtensions[i], availableExtensions[j].extensionName); i++);
+		for (i = 0; i < extensionCount && ft_strcmp(requiredExtensions[j], availableExtensions[i].extensionName); i++);
 		if (i == extensionCount)
 		{
 			presentExtension = 0;
-			printf("%s is missing\n", requiredExtensions[i]);
+			printf("%s is missing\n", requiredExtensions[j]);
 		}
 	}
 	free(availableExtensions);

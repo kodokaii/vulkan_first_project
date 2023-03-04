@@ -29,4 +29,5 @@ void	initVulkan(GLFWwindow	*window)
 	createLogicalDevice(&device, queues, physicalDevice, validationLayers, instance, surface);
 
 	free(extensions);
+	cleanup(0, "GOOD\n", surface, instance, device);
 }
